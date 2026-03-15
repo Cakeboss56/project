@@ -87,4 +87,30 @@ public class PatientListTest {
 
         assertNotNull(patientList.nextPatient());
     }
+
+    @Test
+    void PatientListSaveToFileTest() {
+        Name name1 = new Name("firstName1", "lastName1");
+        Name name2 = new Name("fistName2", "lastName2");
+        Date date1 = new Date(1);
+        Date date2 = new Date(2);
+        PatientIdentity patientIdentity1 = new PatientIdentity(name1, date1);
+        PatientIdentity patientIdentity2 = new PatientIdentity(name2, date2);
+        Patient patient1 = new Patient(patientIdentity1);
+        Patient patient2 = new Patient(patientIdentity2);
+        PatientList patientList = new PatientList(2);
+
+        patientList.addPatient(patient1);
+        patientList.addPatient(patient2);
+
+        assertTrue(patientList.saveToFile("testFile.txt"));
+    }
+
+    @Test
+    void PatientListLoadFromFileTest() {
+        PatientList patientList = new PatientList(2);
+
+        assertTrue(patientList.importFromFile("testFile.txt"));
+        assertTrue(patientList.getNumberOfPatients() == 2);
+    }
 }

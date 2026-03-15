@@ -94,12 +94,11 @@ public class PatientList {
             return true;
         } catch (IOException ioException) {
             ioException.printStackTrace();
-
             return false;
         }
     }
 
-    public boolean loadFromFile(String filename) {
+    public boolean importFromFile(String filename) {
         File file = new File(filename);
         
         try (Scanner scanner = new Scanner(file)) {
@@ -121,9 +120,33 @@ public class PatientList {
             return false;
         }
 
+        mergeSortPatients(this.patientArray);
         return true;
     }
 
+    private void mergeSortPatients(Patient[] patientArray) {
+        int patientArraylength = this.numberOfPatients;
+
+        if (this.numberOfPatients < 2) {
+            return;
+        }
+
+        int middleIndex = patientArraylength / 2;
+        Patient[] leftPatientArray = new Patient[middleIndex];
+        Patient[] rightPatientArray = new Patient[patientArraylength - middleIndex];
+
+        for (int index = 0; index < middleIndex; index++) {
+            leftPatientArray[index] = this.patientArray[index];
+        }
+
+        for (int index = middleIndex; index < patientArraylength; index++) {
+            rightPatientArray[index - middleIndex] = this.patientArray[index];
+        }
+
+        mergeSortPatients(leftPatientArray);
+        mergeSortPatients(rightPatientArray);
+        merge(this.patientArray, leftPatientArray, rightPatientArray);
+    }
     //Helper Methods
     private boolean insertPatient(Patient patient) {
         PatientIdentity patientIdentity = patient.getPatientIdentity();
@@ -165,5 +188,37 @@ public class PatientList {
         }
 
         return null;
+    }
+
+    private static void merge(Patient[] patientArray, Patient[] leftPatientArray, Patient[] rightPatientArray) {
+        int leftSize = leftPatientArray.length;
+        int rightSize = rightPatientArray.length;
+        int leftIndex = 0;
+        int rightIndex = 0;
+        int mergedIndex = 0;
+
+        while (leftIndex < leftSize && rightIndex < rightSize) {
+            if (leftPatientArray[leftIndex].getPatientIdentity().isLessThan(rightPatientArray[rightIndex].getPatientIdentity())) {
+                patientArray[mergedIndex] = leftPatientArray[leftIndex];
+                leftIndex++;
+            } else {
+                patientArray[mergedIndex] = rightPatientArray[rightIndex];
+                rightIndex++;
+            }
+
+            mergedIndex++;
+        }
+
+        while (leftIndex < leftSize) {
+            patientArray[mergedIndex] = leftPatientArray[leftIndex];
+            leftIndex++;
+            mergedIndex++;
+        }
+
+        while (rightIndex < rightSize) {
+            patientArray[mergedIndex] = rightPatientArray[rightIndex];
+            rightIndex++;
+            mergedIndex++;
+        }
     }
 }

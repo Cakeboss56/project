@@ -17,4 +17,31 @@ public class PatientTest {
 
         assertTrue(patient.getPatientIdentity().match(patientIdentity));
     }
+
+    @Test
+    void toCSVTest() {
+        String firstName = "firstName";
+        String lastName = "LastName";
+        Name name = new Name(firstName, lastName);
+        Date dateOfBirth = new Date(0);
+        PatientIdentity patientIdentity = new PatientIdentity(name, dateOfBirth);
+        Patient patient = new Patient(patientIdentity);
+        
+        String csv = patient.toCSV();
+
+        assertEquals(lastName + ", " + firstName + ", " + "01-01-1970", csv);
+    }
+
+    @Test
+    void makePatientTest() {
+        String firstName = "firstName";
+        String lastName = "LastName";
+        Date dateOfBirth = new Date(0);
+        String line = lastName + ", " + firstName + ", " + "01-01-1970";
+
+        Patient patient = Patient.makePatient(line);
+
+        assertTrue(patient.getPatientIdentity().getName().match(new Name(firstName, lastName)));
+        assertEquals(dateOfBirth, patient.getPatientIdentity().getDateOfBirth());
+    }
 }
