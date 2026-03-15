@@ -11,8 +11,17 @@ public class Name {
         this.lastName = lastName;
     }
 
+    //Getters
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
     //Methods
-    public String fullName() {
+    public String toString() {
         return this.lastName + ", " + this.firstName;
     }
 
