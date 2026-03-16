@@ -9,33 +9,32 @@ import java.io.FileNotFoundException;
 public class PatientList {
     //Instance Variables
     private Patient[] patientArray;
-    private int maximumPatients;
+    private static int maximumPatients = 2000;
     private int numberOfPatients;
     private int indexOfIteration;
     
     //Constructors
-    public PatientList(int maximumPatients) {
-        this.maximumPatients = maximumPatients;
+    public PatientList() {
         this.patientArray = new Patient[maximumPatients];
         this.numberOfPatients = 0;
         this.indexOfIteration = -1;
     }
 
     //Getters
-    public Patient getPatientArray(int index) {
-        return this.patientArray[index];
-    }
-
-    public int getMaximumPatients() {
-        return this.maximumPatients;
-    }
-
     public int getNumberOfPatients() {
         return this.numberOfPatients;
     }
 
     public int getIndexOfIteration() {
         return this.indexOfIteration;
+    }
+
+    public Patient getPatientArray(int index) {
+        if (index < 0 || index >= this.numberOfPatients) {
+            return null;
+        }
+
+        return this.patientArray[index];
     }
 
     //Methods
@@ -66,14 +65,14 @@ public class PatientList {
     }
 
     public Patient nextPatient() {
-        if (this.indexOfIteration == -1) {
+        if (this.indexOfIteration == -1 || this.indexOfIteration >= this.numberOfPatients) {
             return null;
         }
 
         Patient patient = this.patientArray[this.indexOfIteration];
         this.indexOfIteration++;
 
-        if (patient == null) {
+        if (this.indexOfIteration >= this.numberOfPatients) {
             this.indexOfIteration = -1;
         }
 
@@ -99,54 +98,69 @@ public class PatientList {
     }
 
     public boolean importFromFile(String filename) {
-        File file = new File(filename);
-        
+    File file = new File(filename);
+    boolean importedEverything = true;
+
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 Patient patient = Patient.makePatient(line);
-                
-                if (!(patient == null)) {
-                    this.patientArray[this.numberOfPatients] = patient;
-                    this.numberOfPatients++;
+
+                if (patient == null) {
+                    continue;
                 }
 
                 if (this.numberOfPatients >= this.patientArray.length) {
-                    return false;
+                    importedEverything = false;
+                    break;
                 }
+
+                this.patientArray[this.numberOfPatients] = patient;
+                this.numberOfPatients++;
             }
-        } catch (FileNotFoundException fileNotFoundException) {
-            fileNotFoundException.printStackTrace();
+        } catch (FileNotFoundException exception) {
             return false;
         }
 
-        mergeSortPatients(this.patientArray);
-        return true;
+        Patient[] patientsToSort = new Patient[this.numberOfPatients];
+
+        for (int index = 0; index < this.numberOfPatients; index++) {
+            patientsToSort[index] = this.patientArray[index];
+        }
+
+        mergeSortPatients(patientsToSort);
+
+        for (int index = 0; index < this.numberOfPatients; index++) {
+            this.patientArray[index] = patientsToSort[index];
+        }
+
+        return importedEverything;
     }
 
     private void mergeSortPatients(Patient[] patientArray) {
-        int patientArraylength = this.numberOfPatients;
+        int length = patientArray.length;
 
-        if (this.numberOfPatients < 2) {
+        if (length < 2) {
             return;
         }
 
-        int middleIndex = patientArraylength / 2;
-        Patient[] leftPatientArray = new Patient[middleIndex];
-        Patient[] rightPatientArray = new Patient[patientArraylength - middleIndex];
+        int middle = length / 2;
+        Patient[] left = new Patient[middle];
+        Patient[] right = new Patient[length - middle];
 
-        for (int index = 0; index < middleIndex; index++) {
-            leftPatientArray[index] = this.patientArray[index];
+        for (int index = 0; index < middle; index++) {
+            left[index] = patientArray[index];
         }
 
-        for (int index = middleIndex; index < patientArraylength; index++) {
-            rightPatientArray[index - middleIndex] = this.patientArray[index];
+        for (int index = middle; index < length; index++) {
+            right[index - middle] = patientArray[index];
         }
 
-        mergeSortPatients(leftPatientArray);
-        mergeSortPatients(rightPatientArray);
-        merge(this.patientArray, leftPatientArray, rightPatientArray);
+        mergeSortPatients(left);
+        mergeSortPatients(right);
+        merge(patientArray, left, right);
     }
+
     //Helper Methods
     private boolean insertPatient(Patient patient) {
         PatientIdentity patientIdentity = patient.getPatientIdentity();

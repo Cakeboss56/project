@@ -28,7 +28,7 @@ public class Patient {
         String nameString = this.patientIdentity.getName().toString();
         String dateOfBirthString = formatter.format(this.patientIdentity.getDateOfBirth());
         String patientIdentityString = nameString + ", " + dateOfBirthString;
-        
+
         return patientIdentityString;
     }
 
