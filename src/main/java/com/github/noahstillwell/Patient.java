@@ -1,17 +1,12 @@
 package com.github.noahstillwell;
 
 import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
 import java.util.Scanner;
+import java.util.NoSuchElementException;
 
 public class Patient {
     //Instance Variables
     private PatientIdentity patientIdentity;
-    private static final SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-    static {
-        formatter.setLenient(false);
-    }
 
     //Constructors
     public Patient(PatientIdentity patientIdentity) {
@@ -25,11 +20,7 @@ public class Patient {
 
     //Methods
     public String toCSV() {
-        String nameString = this.patientIdentity.getName().toString();
-        String dateOfBirthString = formatter.format(this.patientIdentity.getDateOfBirth());
-        String patientIdentityString = nameString + ", " + dateOfBirthString;
-
-        return patientIdentityString;
+        return patientIdentity.toString();
     }
 
     public static Patient makePatient(String line) {
@@ -41,18 +32,13 @@ public class Patient {
             String dateOfBirthString = scanner.next();
 
             Name name = new Name(firstName, lastName);
-            Date dateOfBirth = parseDate(dateOfBirthString);
+            Date dateOfBirth = PatientIdentity.parseDate(dateOfBirthString);
             PatientIdentity patientIdentity = new PatientIdentity(name, dateOfBirth);
             Patient patient = new Patient(patientIdentity);
 
             return patient;
-        } catch (Exception exception) {
+        } catch (NoSuchElementException noSuchElementException) {
             return null;
         }
-    }
-
-    //Helper Methods
-    private static Date parseDate(String dateString) throws ParseException {
-        return formatter.parse(dateString);
     }
 }

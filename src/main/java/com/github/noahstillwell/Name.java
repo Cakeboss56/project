@@ -22,19 +22,21 @@ public class Name {
 
     //Methods
     public String toString() {
-        return this.lastName + ", " + this.firstName;
+        return this.lastName 
+        + ", " 
+        + this.firstName;
     }
 
     public boolean match(Name other) {
-        return this.firstName.toLowerCase().equals(other.firstName.toLowerCase()) 
-        && this.lastName.toLowerCase().equals(other.lastName.toLowerCase());
+        return this.firstName.equalsIgnoreCase(other.firstName)
+        && this.lastName.equalsIgnoreCase(other.lastName);
     }
 
     public boolean isLessThan(Name other) {
-        if (this.lastName.toLowerCase().compareTo(other.lastName.toLowerCase()) != 0) {
-            return this.lastName.toLowerCase().compareTo(other.lastName.toLowerCase()) < 0;
+        if (this.lastName.compareToIgnoreCase(other.lastName) != 0) {
+            return this.lastName.compareToIgnoreCase(other.lastName) < 0;
         } else {
-            return this.firstName.toLowerCase().compareTo(other.firstName.toLowerCase()) < 0;
+            return this.firstName.compareToIgnoreCase(other.firstName) < 0;
         }
     }
 }

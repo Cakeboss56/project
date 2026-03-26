@@ -98,8 +98,8 @@ public class PatientList {
     }
 
     public boolean importFromFile(String filename) {
-    File file = new File(filename);
-    boolean importedEverything = true;
+        File file = new File(filename);
+        boolean importedEverything = true;
 
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {

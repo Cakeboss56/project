@@ -1,6 +1,8 @@
 package com.github.noahstillwell;
 
 import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 public class PatientIdentity {
     //Instance Variables
@@ -22,7 +24,19 @@ public class PatientIdentity {
         return this.dateOfBirth;
     }
 
+    //Variables
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    static { 
+        formatter.setLenient(false);
+    }
+
     //Methods
+    public String toString() {
+        return this.name.toString() 
+        + ", "
+        + formatter.format(this.dateOfBirth);
+    }
+
     public boolean match(PatientIdentity other) {
         return this.name.match(other.name) 
         && this.dateOfBirth.equals(other.dateOfBirth);
@@ -33,6 +47,14 @@ public class PatientIdentity {
             return this.name.isLessThan(other.name);
         } else {
             return this.dateOfBirth.compareTo(other.dateOfBirth) < 0;
+        }
+    }
+
+    public static Date parseDate(String dateString) {
+        try {
+            return formatter.parse(dateString);
+        } catch (ParseException parseException){
+            return null;
         }
     }
 }
