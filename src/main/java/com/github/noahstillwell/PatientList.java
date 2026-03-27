@@ -7,18 +7,18 @@ import java.util.Scanner;
 import java.io.FileNotFoundException;
 
 public class PatientList {
-    //Instance Variables
+    // Instance Variables
     private Patient[] patientArray;
     private static int maximumPatients = 1000;
     private int numberOfPatients = 0;
     private int indexOfIteration = -1;
     
-    //Constructors
+    // Constructors
     public PatientList() {
         this.patientArray = new Patient[maximumPatients];
     }
 
-    //Getters
+    // Getters
     public Patient getPatient(int index) {
         return this.patientArray[index];
     }
@@ -31,27 +31,10 @@ public class PatientList {
         return this.indexOfIteration;
     }
 
-    //Methods
+    // Methods
     public boolean add(Patient patient) {
         if (this.numberOfPatients < this.patientArray.length) {
-            PatientIdentity patientIdentity = patient.getPatientIdentity();
-            int index = this.numberOfPatients - 1;
-
-            while (index >= 0) {
-                PatientIdentity otherPatientIdentity = this.patientArray[index].getPatientIdentity();
-
-                if (patientIdentity.isLessThan(otherPatientIdentity)) {
-                    this.patientArray[index + 1] = this.patientArray[index];
-                    index--;
-                } else {
-                    break;
-                }
-            }
-
-            this.patientArray[index + 1] = patient;
-            this.numberOfPatients++;
-            
-            return true;
+            return addSorted(patient);
         }
 
         return false;
@@ -142,7 +125,28 @@ public class PatientList {
         return importedEverything;
     }
 
-    //Helper Methods
+    // Helper Methods
+    private boolean addSorted(Patient patient) {
+        PatientIdentity patientIdentity = patient.getPatientIdentity();
+        int index = this.numberOfPatients - 1;
+
+        while (index >= 0) {
+            PatientIdentity otherPatientIdentity = this.patientArray[index].getPatientIdentity();
+
+            if (patientIdentity.isLessThan(otherPatientIdentity)) {
+                this.patientArray[index + 1] = this.patientArray[index];
+                index--;
+            } else {
+                break;
+            }
+        }
+
+        this.patientArray[index + 1] = patient;
+        this.numberOfPatients++;
+            
+        return true;
+    }
+
     private Patient binarySearch(PatientIdentity patientIdentity) {
         int lower = 0;
         int upper = this.numberOfPatients - 1;
@@ -188,7 +192,7 @@ public class PatientList {
         merge(patientArray, left, right);
     }
 
-    //Helper Helper Methods
+    // Helper Helper Methods
     private static void merge(Patient[] patientArray, Patient[] leftPatientArray, Patient[] rightPatientArray) {
         int leftSize = leftPatientArray.length;
         int rightSize = rightPatientArray.length;

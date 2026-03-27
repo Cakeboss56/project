@@ -5,20 +5,26 @@ import java.util.Scanner;
 import java.util.NoSuchElementException;
 
 public class Patient {
-    //Instance Variables
+    // Instance Variables
     private PatientIdentity patientIdentity;
+    private PrescriptionList prescriptionList;
 
-    //Constructors
+    // Constructors
     public Patient(PatientIdentity patientIdentity) {
         this.patientIdentity = patientIdentity;
+        this.prescriptionList = new PrescriptionList();
     }
 
-    //Getters
+    // Getters
     public PatientIdentity getPatientIdentity() {
         return this.patientIdentity;
     }
 
-    //Methods
+    public PrescriptionList getPrescriptionList() {
+        return this.prescriptionList;
+    }
+
+    // Methods
     public String toCSV() {
         return patientIdentity.toString();
     }
@@ -29,16 +35,16 @@ public class Patient {
 
             String lastName = scanner.next();
             String firstName = scanner.next();
-            String dateOfBirthString = scanner.next();
+            Date dateOfBirth = PatientIdentity.parseDate(scanner.next());
+
+            if (lastName.isEmpty() || firstName.isEmpty() || dateOfBirth == null) {
+                return null;
+            }
 
             Name name = new Name(firstName, lastName);
-            Date dateOfBirth = PatientIdentity.parseDate(dateOfBirthString);
             PatientIdentity patientIdentity = new PatientIdentity(name, dateOfBirth);
-            Patient patient = new Patient(patientIdentity);
-
-            return patient;
-        } catch (NoSuchElementException noSuchElementException) {
-            noSuchElementException.printStackTrace();
+            return new Patient(patientIdentity);
+        } catch (NoSuchElementException exception) {
             return null;
         }
     }

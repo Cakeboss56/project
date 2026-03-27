@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
 public class PatientIdentity {
-    //Instance Variables
+    // Instance Variables
     private Name name;
     private Date dateOfBirth;
     
@@ -14,13 +14,13 @@ public class PatientIdentity {
         formatter.setLenient(false);
     }
 
-    //Constructors
+    // Constructors
     public PatientIdentity(Name name, Date dateOfBirth) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
     }
 
-    //Getters
+    // Getters
     public Name getName() {
         return this.name;
     }
@@ -29,11 +29,11 @@ public class PatientIdentity {
         return this.dateOfBirth;
     }
 
-    //Methods
+    // Methods
     public String toString() {
         return this.name.toString() 
         + ", "
-        + formatter.format(this.dateOfBirth);
+        + formatDate(dateOfBirth);
     }
 
     public boolean match(PatientIdentity other) {
@@ -47,6 +47,10 @@ public class PatientIdentity {
         } else {
             return this.dateOfBirth.compareTo(other.dateOfBirth) < 0;
         }
+    }
+
+    public static String formatDate(Date date) {
+        return formatter.format(date);
     }
 
     public static Date parseDate(String dateString) {

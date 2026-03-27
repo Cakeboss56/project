@@ -1,17 +1,17 @@
 package com.github.noahstillwell;
 
 public class Name {
-    //Instance Variables
+    // Instance Variables
     private String firstName;
     private String lastName;
 
-    //Constructors
+    // Constructors
     public Name(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    //Getters
+    // Getters
     public String getFirstName() {
         return this.firstName;
     }
@@ -20,7 +20,7 @@ public class Name {
         return this.lastName;
     }
 
-    //Methods
+    // Methods
     public String toString() {
         return this.lastName 
         + ", " 
