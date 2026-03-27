@@ -8,6 +8,11 @@ public class PatientIdentity {
     //Instance Variables
     private Name name;
     private Date dateOfBirth;
+    
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    static { 
+        formatter.setLenient(false);
+    }
 
     //Constructors
     public PatientIdentity(Name name, Date dateOfBirth) {
@@ -22,12 +27,6 @@ public class PatientIdentity {
 
     public Date getDateOfBirth() {
         return this.dateOfBirth;
-    }
-
-    //Variables
-    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-    static { 
-        formatter.setLenient(false);
     }
 
     //Methods

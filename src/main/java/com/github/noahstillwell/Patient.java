@@ -38,6 +38,7 @@ public class Patient {
 
             return patient;
         } catch (NoSuchElementException noSuchElementException) {
+            noSuchElementException.printStackTrace();
             return null;
         }
     }
