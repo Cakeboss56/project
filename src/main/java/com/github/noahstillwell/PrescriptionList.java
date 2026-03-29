@@ -24,14 +24,41 @@ public class PrescriptionList {
 
     // Methods
     public void add(Prescription prescription) {
-        ListRecord new
+        if (prescription == null) {
+            return;
+        }
+
+        ListRecord newRecord = new ListRecord(prescription);
+
+        if (this.head == null || comesBefore(prescription, this.head.data)) {
+            newRecord.next = this.head;
+            this.head = newRecord;
+            return;
+        }
+
+        ListRecord previousRecord = this.head;
+
+        while (previousRecord.next != null && comesBefore(previousRecord.next.data, prescription)) {
+            previousRecord = previousRecord.next;
+        }
+
+        newRecord.next = previousRecord.next;
+        previousRecord.next = newRecord;
+
     }
 
-    public void init() {
+    public void initialize() {
         this.currentIterationRecord = this.head;
     }
 
     public Prescription next() {
+        Prescription prescription = this.currentIterationRecord.data;
+        this.currentIterationRecord = this.currentIterationRecord.next;
+        return prescription;
+    }
 
+    // Hellper Methods
+    private static boolean comesBefore(Prescription prescription1, Prescription prescription2) {
+        return prescription1.getDateOfIssue().compareTo(prescription2.getDateOfIssue()) > 0;
     }
 }
