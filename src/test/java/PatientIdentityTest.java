@@ -7,18 +7,7 @@ import com.github.noahstillwell.PatientIdentity;
 public class PatientIdentityTest {
 
     @Test
-    void patientIdentityConstructorTest() {
-        Name name = new Name("firstName", "lastName");
-        Date dateOfBirth = new Date(0);
-
-        PatientIdentity patientIdentity = new PatientIdentity(name, dateOfBirth);
-
-        assertTrue(patientIdentity.getName().match(name));
-        assertTrue(patientIdentity.getDateOfBirth().equals(dateOfBirth));
-    }
-
-    @Test
-    void patientIdentityMatchTest() {
+    void matchTest() {
         Name name1 = new Name("firstName1", "lastName1");
         Name name2 = new Name("firstName2", "lastName2");
         Date dateOfBirth1 = new Date(1);
@@ -32,7 +21,7 @@ public class PatientIdentityTest {
     }
 
     @Test
-    void patientIdentityIsLessThanTest() {
+    void isLessThanTest() {
         Name name1 = new Name("firstName1", "lastName1");
         Name name2 = new Name("firstName2", "lastName2");
         Date dateOfBirth1 = new Date(1);

@@ -33,7 +33,7 @@ public class PatientTest {
     }
 
     @Test
-    void PatientmakePatientTest() {
+    void makePatientTest() {
         String line = "lastName, firstName, 1969-12-31";
         Patient patient = Patient.makePatient(line);
         assertNotNull(patient);

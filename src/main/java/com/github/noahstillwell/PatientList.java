@@ -9,13 +9,15 @@ import java.io.FileNotFoundException;
 public class PatientList {
     // Instance Variables
     private Patient[] patientArray;
-    private static int maximumPatients = 1000;
-    private int numberOfPatients = 0;
-    private int indexOfIteration = -1;
+    private static int maximumPatients = 10000;
+    private int numberOfPatients;
+    private int indexOfIteration;
     
     // Constructors
     public PatientList() {
         this.patientArray = new Patient[maximumPatients];
+        this.numberOfPatients = 0;
+        this.indexOfIteration = -1;
     }
 
     // Getters

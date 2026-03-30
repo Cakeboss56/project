@@ -5,7 +5,7 @@ import com.github.noahstillwell.Name;
 public class NameTest {
     
     @Test
-    void NameMatchTest() {
+    void matchTest() {
         Name name1 = new Name("firstName1", "LastName1");
         Name name2 = new Name("firstName2", "LastName2");
 
@@ -14,7 +14,7 @@ public class NameTest {
     }
 
     @Test
-    void NameIsLessThanTest() {
+    void isLessThanTest() {
         Name name1 = new Name("A", "A");
         Name name2 = new Name("B", "B");
         Name name3 = new Name("B", "A");

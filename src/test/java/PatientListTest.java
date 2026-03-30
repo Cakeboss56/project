@@ -9,7 +9,7 @@ import com.github.noahstillwell.PatientList;
 public class PatientListTest {
 
     @Test
-    void PatientListAddPatientTest() {
+    void addPatientTest() {
         Name name1 = new Name("firstName1", "lastName1");
         Name name2 = new Name("fistName2", "lastName2");
         Date date1 = new Date(1);
@@ -26,7 +26,7 @@ public class PatientListTest {
     }
 
     @Test
-    void PatientListFindPatientTest() {
+    void findPatientTest() {
         Name name1 = new Name("firstName1", "lastName1");
         Name name2 = new Name("fistName2", "lastName2");
         Date date1 = new Date(1);
@@ -45,7 +45,7 @@ public class PatientListTest {
     }
 
     @Test
-    void PatientListInitializeIterationTest() {
+    void initializeIterationTest() {
         Name name1 = new Name("firstName1", "lastName1");
         Name name2 = new Name("fistName2", "lastName2");
         Date date1 = new Date(1);
@@ -67,7 +67,7 @@ public class PatientListTest {
     }
 
     @Test
-    void PatientListNextPatientTest() {
+    void nextPatientTest() {
         Name name1 = new Name("firstName1", "lastName1");
         Name name2 = new Name("fistName2", "lastName2");
         Date date1 = new Date(1);
@@ -88,7 +88,7 @@ public class PatientListTest {
     }
 
     @Test
-    void PatientListSaveToFileTest() {
+    void saveToFileTest() {
         Name name1 = new Name("firstName1", "lastName1");
         Name name2 = new Name("fistName2", "lastName2");
         Date date1 = new Date(1);
@@ -106,7 +106,7 @@ public class PatientListTest {
     }
 
     @Test
-    void PatientListLoadFromFileTest() {
+    void loadFromFileTest() {
         PatientList patientList = new PatientList();
 
         assertTrue(patientList.importFromFile("patients1000.csv"));

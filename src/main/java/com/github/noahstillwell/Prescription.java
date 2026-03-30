@@ -20,7 +20,7 @@ public class Prescription {
     }
 
     // Getters
-    public String getMedicineName() {
+    public String getName() {
         return this.name;
     }
 
