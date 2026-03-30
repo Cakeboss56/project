@@ -1,8 +1,10 @@
 package com.github.noahstillwell;
 
 import java.util.Date;
+import java.util.Scanner;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
+import java.util.NoSuchElementException;
 
 public class PatientIdentity {
     // Instance Variables
@@ -57,6 +59,26 @@ public class PatientIdentity {
         try {
             return formatter.parse(dateString);
         } catch (ParseException parseException){
+            return null;
+        }
+    }
+
+    public static PatientIdentity makePatientIdentity(String line) {
+        try (Scanner scanner = new Scanner(line)) {
+            scanner.useDelimiter(",\s*");
+
+            String lastName = scanner.next();
+            String firstName = scanner.next();
+            String dateOfBirthString = scanner.next();
+
+            if (lastName.isEmpty() || firstName.isEmpty() || dateOfBirthString.isEmpty()) {
+                return null;
+            }
+
+            Name name = new Name(firstName, lastName);
+            Date dateOfBirth = PatientIdentity.parseDate(dateOfBirthString);
+            return new PatientIdentity(name, dateOfBirth);
+        } catch (NoSuchElementException exception) {
             return null;
         }
     }

@@ -125,6 +125,32 @@ public class PatientList {
         return importedEverything;
     }
 
+    public boolean importPrescriptionsFromFile(String filename) {
+        File file = new File(filename);
+
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                PatientIdentity patientIdentity = PatientIdentity.makePatientIdentity(line);
+                Prescription prescription  = Prescription.makePrescription(line);
+
+                if (patientIdentity == null || prescription == null) {
+                    continue;
+                }
+
+                Patient patient = find(patientIdentity);
+
+                if (patient != null) {
+                    patient.getPrescriptionList().add(prescription);
+                }
+            }
+
+            return true;
+        } catch (FileNotFoundException exception) {
+            return false;
+        }
+    }
+
     // Helper Methods
     private boolean addSorted(Patient patient) {
         PatientIdentity patientIdentity = patient.getPatientIdentity();
