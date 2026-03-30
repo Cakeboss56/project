@@ -52,6 +52,10 @@ public class PrescriptionList {
     }
 
     public Prescription next() {
+        if (this.currentIterationRecord == null) {
+            return null;
+        }
+        
         Prescription prescription = this.currentIterationRecord.data;
         this.currentIterationRecord = this.currentIterationRecord.next;
         return prescription;

@@ -69,14 +69,14 @@ public class PatientIdentity {
 
             String lastName = scanner.next();
             String firstName = scanner.next();
-            String dateOfBirthString = scanner.next();
+            Date dateOfBirth = PatientIdentity.parseDate(scanner.next());
 
-            if (lastName.isEmpty() || firstName.isEmpty() || dateOfBirthString.isEmpty()) {
+            if (lastName.isEmpty() || firstName.isEmpty() || dateOfBirth == null) {
                 return null;
             }
 
             Name name = new Name(firstName, lastName);
-            Date dateOfBirth = PatientIdentity.parseDate(dateOfBirthString);
+            
             return new PatientIdentity(name, dateOfBirth);
         } catch (NoSuchElementException exception) {
             return null;
