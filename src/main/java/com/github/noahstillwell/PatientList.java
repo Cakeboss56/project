@@ -55,18 +55,18 @@ public class PatientList {
     }
 
     public Patient next() {
-        if (this.indexOfIteration < this.numberOfPatients) {
-            Patient patient = this.patientArray[this.indexOfIteration];
-            this.indexOfIteration++;
-
-            if (this.indexOfIteration >= this.numberOfPatients) {
-                this.indexOfIteration = -1;
-            }
-
-            return patient;
+        if (this.indexOfIteration < 0 || this.indexOfIteration >= this.numberOfPatients) {
+            return null;
         }
 
-        return null;
+        Patient patient = this.patientArray[this.indexOfIteration];
+        this.indexOfIteration++;
+        
+        if (this.indexOfIteration >= this.numberOfPatients) {
+            this.indexOfIteration = -1;
+        }
+
+        return patient;
     }
 
     public boolean saveToFile(String filename) {
