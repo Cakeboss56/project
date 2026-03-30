@@ -20,7 +20,7 @@ public class PrescriptionTest {
 
     @Test
     void makePrescriptionTest() {
-        String line = "name, 1969-12-31, 1, prescriber";
+        String line = "null, null, null, name, 1969-12-31, 1, prescriber";
         Prescription prescription = Prescription.makePrescription(line);
 
         assertNotNull(prescription);
