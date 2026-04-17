@@ -25,7 +25,7 @@ public class BinarySearchTree {
     }
 
     // Methods
-    public void add(Object object) {
+    public void addObject(Object object) {
         if (object == null || object.getObjectIdentity() == null) {
             return;
         }
@@ -33,7 +33,7 @@ public class BinarySearchTree {
         this.rootTreeNode = addTreeNode(this.rootTreeNode, new TreeNode(object));
     }
 
-    public Object find(ObjectIdentity objectIdentity) {
+    public Object findObject(ObjectIdentity objectIdentity) {
         TreeNode treeNode = findTreeNode(this.rootTreeNode, objectIdentity);
         
         if (treeNode == null) {
