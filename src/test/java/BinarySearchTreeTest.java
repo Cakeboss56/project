@@ -16,7 +16,7 @@ public class BinarySearchTreeTest {
         BinarySearchTree binarySearchTree = new BinarySearchTree();
 
         Name name = new Name("firstName", "lastName");
-        Date dateOfBirth = PatientIdentity.parseDate("01,01,2000");
+        Date dateOfBirth = PatientIdentity.parseDate("2000,01,01");
         PatientIdentity patientIdentity = new PatientIdentity(name, dateOfBirth);
         Patient patient = new Patient(patientIdentity);
 
@@ -31,7 +31,7 @@ public class BinarySearchTreeTest {
         BinarySearchTree binarySearchTree = new BinarySearchTree();
 
         Name name = new Name("firstName", "lastName");
-        Date dateOfBirth = PatientIdentity.parseDate("01,01,2000");
+        Date dateOfBirth = PatientIdentity.parseDate("2000,01,01");
         PatientIdentity patientIdentity = new PatientIdentity(name, dateOfBirth);
         Patient patient = new Patient(patientIdentity);
 
