@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.NoSuchElementException;
 
-public class PatientIdentity {
+public class PatientIdentity implements ObjectIdentity {
     // Instance Variables
     private Name name;
     private Date dateOfBirth;
@@ -43,12 +43,22 @@ public class PatientIdentity {
         && this.dateOfBirth.equals(other.dateOfBirth);
     }
 
+    @Override
+    public boolean match(ObjectIdentity objectIdentity) {
+        return match((PatientIdentity) objectIdentity);
+    }
+
     public boolean isLessThan(PatientIdentity other) {
         if (!this.name.match(other.name)) {
             return this.name.isLessThan(other.name);
         } else {
             return this.dateOfBirth.compareTo(other.dateOfBirth) < 0;
         }
+    }
+
+    @Override
+    public boolean isLessThan(ObjectIdentity objectIdentity) {
+        return isLessThan((PatientIdentity) objectIdentity);
     }
 
     public static String formatDate(Date date) {

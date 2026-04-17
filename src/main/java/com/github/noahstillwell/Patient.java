@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Scanner;
 import java.util.NoSuchElementException;
 
-public class Patient {
+public class Patient implements Object{
     // Instance Variables
     private PatientIdentity patientIdentity;
     private PrescriptionList prescriptionList;
@@ -18,6 +18,11 @@ public class Patient {
     // Getters
     public PatientIdentity getPatientIdentity() {
         return this.patientIdentity;
+    }
+
+    @Override
+    public ObjectIdentity getObjectIdentity() {
+        return getPatientIdentity();
     }
 
     public PrescriptionList getPrescriptionList() {
