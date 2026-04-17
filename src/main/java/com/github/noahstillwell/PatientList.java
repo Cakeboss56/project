@@ -34,19 +34,21 @@ public class PatientList {
     }
 
     // Methods
-    public boolean add(Patient patient) {
-        if (this.numberOfPatients < this.patientArray.length) {
-            return addSorted(patient);
+    public boolean addPatient(Patient patient) {
+        if (this.numberOfPatients > this.patientArray.length) {
+            return false;
         }
 
-        return false;
+        boolean addedPatient = addSorted(patient);
+
+        return addedPatient;
     }
 
-    public Patient find(PatientIdentity patientIdentity) {
+    public Patient findPatient(PatientIdentity patientIdentity) {
         return binarySearch(patientIdentity);
     }
 
-    public void initializeIteration() {
+    public void initializeIndexOfIteration() {
         if (this.numberOfPatients == 0) {
             this.indexOfIteration = -1;
         } else {
@@ -54,29 +56,29 @@ public class PatientList {
         }
     }
 
-    public Patient next() {
-        if (this.indexOfIteration < 0 || this.indexOfIteration >= this.numberOfPatients) {
+    public Patient nextPatient() {
+        if (this.indexOfIteration < 0 || this.indexOfIteration >= this.numberOfPatients + 1) {
             return null;
         }
 
         Patient patient = this.patientArray[this.indexOfIteration];
         this.indexOfIteration++;
         
-        if (this.indexOfIteration >= this.numberOfPatients) {
+        if (this.indexOfIteration >= this.numberOfPatients + 1) {
             this.indexOfIteration = -1;
         }
 
         return patient;
     }
 
-    public boolean saveToFile(String filename) {
+    public boolean savePatients(String filename) {
         File file = new File(filename);
 
         try (FileWriter fileWriter = new FileWriter(file)) {
-            initializeIteration();
+            initializeIndexOfIteration();
             Patient patient = null;
 
-            while ((patient = next()) != null) {
+            while ((patient = nextPatient()) != null) {
                 fileWriter.write(patient.toCSV() + "\n");
             }
 
@@ -87,7 +89,7 @@ public class PatientList {
         }
     }
 
-    public boolean importFromFile(String filename) {
+    public boolean importPatients(String filename) {
         File file = new File(filename);
         boolean importedEverything = true;
 

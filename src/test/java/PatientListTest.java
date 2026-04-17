@@ -20,8 +20,8 @@ public class PatientListTest {
         Patient patient2 = new Patient(patientIdentity2);
         PatientList patientList = new PatientList();
 
-        assertTrue(patientList.add(patient2));
-        assertTrue(patientList.add(patient1));
+        assertTrue(patientList.addPatient(patient2));
+        assertTrue(patientList.addPatient(patient1));
         assertTrue(patientList.getPatient(0) == patient1);
     }
 
@@ -37,11 +37,11 @@ public class PatientListTest {
         Patient patient2 = new Patient(patientIdentity2);
         PatientList patientList = new PatientList();
 
-        patientList.add(patient1);
-        patientList.add(patient2);
+        patientList.addPatient(patient1);
+        patientList.addPatient(patient2);
 
-        assertTrue(patientList.find(patientIdentity1) == patient1);
-        assertTrue(patientList.find(patientIdentity2) == patient2);
+        assertTrue(patientList.findPatient(patientIdentity1) == patient1);
+        assertTrue(patientList.findPatient(patientIdentity2) == patient2);
     }
 
     @Test
@@ -56,13 +56,13 @@ public class PatientListTest {
         Patient patient2 = new Patient(patientIdentity2);
         PatientList patientList = new PatientList();
 
-        patientList.initializeIteration();
+        patientList.initializeIndexOfIteration();
         assertTrue(patientList.getIndexOfIteration() == -1);
 
-        patientList.add(patient1);
-        patientList.add(patient2);
+        patientList.addPatient(patient1);
+        patientList.addPatient(patient2);
 
-        patientList.initializeIteration();
+        patientList.initializeIndexOfIteration();
         assertTrue(patientList.getIndexOfIteration() == 0);
     }
 
@@ -78,13 +78,13 @@ public class PatientListTest {
         Patient patient2 = new Patient(patientIdentity2);
         PatientList patientList = new PatientList();
 
-        assertNull(patientList.next());
+        assertNull(patientList.nextPatient());
 
-        patientList.add(patient2);
-        patientList.add(patient1);
-        patientList.initializeIteration();
+        patientList.addPatient(patient2);
+        patientList.addPatient(patient1);
+        patientList.initializeIndexOfIteration();
 
-        assertNotNull(patientList.next());
+        assertNotNull(patientList.nextPatient());
     }
 
     @Test
@@ -99,16 +99,16 @@ public class PatientListTest {
         Patient patient2 = new Patient(patientIdentity2);
         PatientList patientList = new PatientList();
 
-        patientList.add(patient1);
-        patientList.add(patient2);
+        patientList.addPatient(patient1);
+        patientList.addPatient(patient2);
 
-        assertTrue(patientList.saveToFile("testFile.csv"));
+        assertTrue(patientList.savePatients("testFile.csv"));
     }
 
     @Test
     void loadFromFileTest() {
         PatientList patientList = new PatientList();
 
-        assertTrue(patientList.importFromFile("patients1000.csv"));
+        assertTrue(patientList.importPatients("patients1000.csv"));
     }
 }
