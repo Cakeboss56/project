@@ -30,21 +30,21 @@ public class BinarySearchTree {
             return;
         }
 
-        this.rootTreeNode = addTreeNode(this.rootTreeNode, new TreeNode(object));
+        this.rootTreeNode = addNode(this.rootTreeNode, new TreeNode(object));
     }
 
     public Object findObject(ObjectIdentity objectIdentity) {
-        TreeNode treeNode = findTreeNode(this.rootTreeNode, objectIdentity);
+        TreeNode node = findNode(this.rootTreeNode, objectIdentity);
         
-        if (treeNode == null) {
+        if (node == null) {
             return null;
         }
 
-        return treeNode.object;
+        return node.object;
     }
 
     // Helper Methods
-    private TreeNode addTreeNode(TreeNode rootTreeNode, TreeNode newTreeNode) {
+    private TreeNode addNode(TreeNode rootTreeNode, TreeNode newTreeNode) {
         if (rootTreeNode == null) {
             return newTreeNode;
         }
@@ -57,15 +57,15 @@ public class BinarySearchTree {
         }
 
         if (newObjectIdentity.isLessThan(rootObjectIdentity)) {
-            rootTreeNode.leftTreeNode = addTreeNode(rootTreeNode.leftTreeNode, newTreeNode);
+            rootTreeNode.leftTreeNode = addNode(rootTreeNode.leftTreeNode, newTreeNode);
         } else {
-            rootTreeNode.rightTreeNode = addTreeNode(rootTreeNode.rightTreeNode, newTreeNode);
+            rootTreeNode.rightTreeNode = addNode(rootTreeNode.rightTreeNode, newTreeNode);
         }
 
         return rootTreeNode;
     }
 
-    private TreeNode findTreeNode(TreeNode rootTreeNode, ObjectIdentity objectIdentity) {
+    private TreeNode findNode(TreeNode rootTreeNode, ObjectIdentity objectIdentity) {
         if (rootTreeNode == null) {
             return null;
         }
@@ -77,9 +77,9 @@ public class BinarySearchTree {
         }
 
         if (objectIdentity.isLessThan(rootObjectIdentity)) {
-            return findTreeNode(rootTreeNode.leftTreeNode, objectIdentity);
+            return findNode(rootTreeNode.leftTreeNode, objectIdentity);
         }
 
-        return findTreeNode(rootTreeNode.rightTreeNode, objectIdentity);
+        return findNode(rootTreeNode.rightTreeNode, objectIdentity);
     }
 }

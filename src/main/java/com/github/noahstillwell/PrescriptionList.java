@@ -2,66 +2,66 @@ package com.github.noahstillwell;
 
 public class PrescriptionList {
     // Nested Classes
-    private class ListRecord {
-        public Prescription data;
-        public ListRecord next;
+    private class PrescriptionRecord {
+        private Prescription prescription;
+        private PrescriptionRecord nextPrescriptionRecord;
 
-        public ListRecord(Prescription prescription) {
-            this.data = prescription;
-            this.next = null;
+        private PrescriptionRecord(Prescription prescription) {
+            this.prescription = prescription;
+            this.nextPrescriptionRecord = null;
         }
     }
 
     // Instance Variables
-    private ListRecord head;
-    private ListRecord currentIterationRecord;
+    private PrescriptionRecord headPrescriptionRecord;
+    private PrescriptionRecord currentPrescriptionRecord;
 
     // Constructors
     public PrescriptionList() {
-        this.head = null;
-        this.currentIterationRecord = null;
+        this.headPrescriptionRecord = null;
+        this.currentPrescriptionRecord = null;
     }
 
     // Methods
-    public void add(Prescription prescription) {
+    public void addPrescription(Prescription prescription) {
         if (prescription == null) {
             return;
         }
 
-        ListRecord newRecord = new ListRecord(prescription);
+        PrescriptionRecord newPrescriptionRecord = new PrescriptionRecord(prescription);
 
-        if (this.head == null || comesBefore(prescription, this.head.data)) {
-            newRecord.next = this.head;
-            this.head = newRecord;
+        if (this.headPrescriptionRecord == null || comesBefore(prescription, this.headPrescriptionRecord.prescription)) {
+            newPrescriptionRecord.nextPrescriptionRecord = this.headPrescriptionRecord;
+            this.headPrescriptionRecord = newPrescriptionRecord;
             return;
         }
 
-        ListRecord previousRecord = this.head;
+        PrescriptionRecord previousPrescriptionRecord = this.headPrescriptionRecord;
 
-        while (previousRecord.next != null && comesBefore(previousRecord.next.data, prescription)) {
-            previousRecord = previousRecord.next;
+        while (previousPrescriptionRecord.nextPrescriptionRecord != null && comesBefore(previousPrescriptionRecord.nextPrescriptionRecord.prescription, prescription)) {
+            previousPrescriptionRecord = previousPrescriptionRecord.nextPrescriptionRecord;
         }
 
-        newRecord.next = previousRecord.next;
-        previousRecord.next = newRecord;
+        newPrescriptionRecord.nextPrescriptionRecord = previousPrescriptionRecord.nextPrescriptionRecord;
+        previousPrescriptionRecord.nextPrescriptionRecord = newPrescriptionRecord;
 
     }
 
     public void initializeIteration() {
-        this.currentIterationRecord = this.head;
+        this.currentPrescriptionRecord = this.headPrescriptionRecord;
     }
 
     public Prescription next() {
-        if (this.currentIterationRecord == null) {
+        if (this.currentPrescriptionRecord == null) {
             return null;
         }
         
-        Prescription prescription = this.currentIterationRecord.data;
-        this.currentIterationRecord = this.currentIterationRecord.next;
+        Prescription prescription = this.currentPrescriptionRecord.prescription;
+        this.currentPrescriptionRecord = this.currentPrescriptionRecord.nextPrescriptionRecord;
         return prescription;
     }
 
-    // Hellper Methods
+    // Helper Methods
     private static boolean comesBefore(Prescription prescription1, Prescription prescription2) {
         return prescription1.getDateOfIssue().compareTo(prescription2.getDateOfIssue()) > 0;
     }
