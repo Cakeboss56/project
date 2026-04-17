@@ -47,7 +47,7 @@ public class PrescriptionList {
 
     }
 
-    public void initialize() {
+    public void initializeIteration() {
         this.currentIterationRecord = this.head;
     }
 
