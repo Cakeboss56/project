@@ -21,7 +21,7 @@ public class Patient implements Object{
     }
 
     @Override
-    public ObjectIdentity getObjectIdentity() {
+    public Identity getIdentity() {
         return getPatientIdentity();
     }
 

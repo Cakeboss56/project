@@ -2,40 +2,40 @@ package com.github.noahstillwell;
 
 public class BinarySearchTree {
     // Nested Classes
-    private class TreeNode {
+    private class Node {
         // Instance Variables
         private Object object;
-        private TreeNode leftTreeNode;
-        private TreeNode rightTreeNode;
+        private Node leftNode;
+        private Node rightNode;
 
         // Constructors
-        private TreeNode(Object object) {
+        private Node(Object object) {
             this.object = object;
-            this.leftTreeNode = null;
-            this.rightTreeNode = null;
+            this.leftNode = null;
+            this.rightNode = null;
         }
     }
 
     // Instance Variables
-    private TreeNode rootTreeNode;
+    private Node rootNode;
 
     // Constructors
     public BinarySearchTree() {
-        this.rootTreeNode = null;
+        this.rootNode = null;
     }
 
     // Methods
     public void addObject(Object object) {
-        if (object == null || object.getObjectIdentity() == null) {
+        if (object == null || object.getIdentity() == null) {
             return;
         }
 
-        this.rootTreeNode = addNode(this.rootTreeNode, new TreeNode(object));
+        this.rootNode = addNode(this.rootNode, new Node(object));
     }
 
-    public Object findObject(ObjectIdentity objectIdentity) {
-        TreeNode node = findNode(this.rootTreeNode, objectIdentity);
-        
+    public Object findObject(Identity identity) {
+        Node node = findNode(this.rootNode, identity);
+
         if (node == null) {
             return null;
         }
@@ -44,42 +44,42 @@ public class BinarySearchTree {
     }
 
     // Helper Methods
-    private TreeNode addNode(TreeNode rootTreeNode, TreeNode newTreeNode) {
-        if (rootTreeNode == null) {
-            return newTreeNode;
+    private Node addNode(Node rootNode, Node newNode) {
+        if (rootNode == null) {
+            return newNode;
         }
 
-        ObjectIdentity rootObjectIdentity = rootTreeNode.object.getObjectIdentity();
-        ObjectIdentity newObjectIdentity = newTreeNode.object.getObjectIdentity();
+        Identity rootIdentity = rootNode.object.getIdentity();
+        Identity newIdentity = newNode.object.getIdentity();
 
-        if (newObjectIdentity.match(rootObjectIdentity)) {
-            return rootTreeNode;
+        if (newIdentity.match(rootIdentity)) {
+            return rootNode;
         }
 
-        if (newObjectIdentity.isLessThan(rootObjectIdentity)) {
-            rootTreeNode.leftTreeNode = addNode(rootTreeNode.leftTreeNode, newTreeNode);
+        if (newIdentity.isLessThan(rootIdentity)) {
+            rootNode.leftNode = addNode(rootNode.leftNode, newNode);
         } else {
-            rootTreeNode.rightTreeNode = addNode(rootTreeNode.rightTreeNode, newTreeNode);
+            rootNode.rightNode = addNode(rootNode.rightNode, newNode);
         }
 
-        return rootTreeNode;
+        return rootNode;
     }
 
-    private TreeNode findNode(TreeNode rootTreeNode, ObjectIdentity objectIdentity) {
-        if (rootTreeNode == null) {
+    private Node findNode(Node rootNode, Identity identity) {
+        if (rootNode == null) {
             return null;
         }
 
-        ObjectIdentity rootObjectIdentity = rootTreeNode.object.getObjectIdentity();
+        Identity rootIdentity = rootNode.object.getIdentity();
 
-        if (objectIdentity.match(rootObjectIdentity)) {
-            return rootTreeNode;
+        if (identity.match(rootIdentity)) {
+            return rootNode;
         }
 
-        if (objectIdentity.isLessThan(rootObjectIdentity)) {
-            return findNode(rootTreeNode.leftTreeNode, objectIdentity);
+        if (identity.isLessThan(rootIdentity)) {
+            return findNode(rootNode.leftNode, identity);
         }
 
-        return findNode(rootTreeNode.rightTreeNode, objectIdentity);
+        return findNode(rootNode.rightNode, identity);
     }
 }
