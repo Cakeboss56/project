@@ -2,24 +2,24 @@ package com.github.noahstillwell;
 
 public class PrescriptionList {
     // Nested Classes
-    private class PrescriptionRecord {
+    private class Record {
         private Prescription prescription;
-        private PrescriptionRecord nextPrescriptionRecord;
+        private Record nextRecord;
 
-        private PrescriptionRecord(Prescription prescription) {
+        private Record(Prescription prescription) {
             this.prescription = prescription;
-            this.nextPrescriptionRecord = null;
+            this.nextRecord = null;
         }
     }
 
     // Instance Variables
-    private PrescriptionRecord headPrescriptionRecord;
-    private PrescriptionRecord currentPrescriptionRecord;
+    private Record headRecord;
+    private Record currentRecord;
 
     // Constructors
     public PrescriptionList() {
-        this.headPrescriptionRecord = null;
-        this.currentPrescriptionRecord = null;
+        this.headRecord = null;
+        this.currentRecord = null;
     }
 
     // Methods
@@ -28,36 +28,36 @@ public class PrescriptionList {
             return;
         }
 
-        PrescriptionRecord newPrescriptionRecord = new PrescriptionRecord(prescription);
+        Record newRecord = new Record(prescription);
 
-        if (this.headPrescriptionRecord == null || comesBefore(prescription, this.headPrescriptionRecord.prescription)) {
-            newPrescriptionRecord.nextPrescriptionRecord = this.headPrescriptionRecord;
-            this.headPrescriptionRecord = newPrescriptionRecord;
+        if (this.headRecord == null || comesBefore(prescription, this.headRecord.prescription)) {
+            newRecord.nextRecord = this.headRecord;
+            this.headRecord = newRecord;
             return;
         }
 
-        PrescriptionRecord previousPrescriptionRecord = this.headPrescriptionRecord;
+        Record previousRecord = this.headRecord;
 
-        while (previousPrescriptionRecord.nextPrescriptionRecord != null && comesBefore(previousPrescriptionRecord.nextPrescriptionRecord.prescription, prescription)) {
-            previousPrescriptionRecord = previousPrescriptionRecord.nextPrescriptionRecord;
+        while (previousRecord.nextRecord != null && comesBefore(previousRecord.nextRecord.prescription, prescription)) {
+            previousRecord = previousRecord.nextRecord;
         }
 
-        newPrescriptionRecord.nextPrescriptionRecord = previousPrescriptionRecord.nextPrescriptionRecord;
-        previousPrescriptionRecord.nextPrescriptionRecord = newPrescriptionRecord;
+        newRecord.nextRecord = previousRecord.nextRecord;
+        previousRecord.nextRecord = newRecord;
 
     }
 
     public void initializeIteration() {
-        this.currentPrescriptionRecord = this.headPrescriptionRecord;
+        this.currentRecord = this.headRecord;
     }
 
-    public Prescription next() {
-        if (this.currentPrescriptionRecord == null) {
+    public Prescription nextPrescription() {
+        if (this.currentRecord == null) {
             return null;
         }
         
-        Prescription prescription = this.currentPrescriptionRecord.prescription;
-        this.currentPrescriptionRecord = this.currentPrescriptionRecord.nextPrescriptionRecord;
+        Prescription prescription = this.currentRecord.prescription;
+        this.currentRecord = this.currentRecord.nextRecord;
         return prescription;
     }
 
