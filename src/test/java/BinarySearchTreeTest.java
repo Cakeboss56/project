@@ -20,8 +20,8 @@ public class BinarySearchTreeTest {
         PatientIdentity patientIdentity = new PatientIdentity(name, dateOfBirth);
         Patient patient = new Patient(patientIdentity);
 
-        binarySearchTree.addObject(patient);
-        Patient foundPatient = (Patient) binarySearchTree.findObject(patientIdentity);
+        binarySearchTree.add(patient);
+        Patient foundPatient = (Patient) binarySearchTree.find(patientIdentity);
 
         assertEquals(patient, foundPatient);
     }
@@ -35,8 +35,8 @@ public class BinarySearchTreeTest {
         PatientIdentity patientIdentity = new PatientIdentity(name, dateOfBirth);
         Patient patient = new Patient(patientIdentity);
 
-        binarySearchTree.addObject(patient);
-        Patient foundPatient = (Patient) binarySearchTree.findObject(patientIdentity);
+        binarySearchTree.add(patient);
+        Patient foundPatient = (Patient) binarySearchTree.find(patientIdentity);
 
         assertNotNull(foundPatient);
     }
