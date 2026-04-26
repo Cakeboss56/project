@@ -1,12 +1,16 @@
 package com.github.noahstillwell;
 
-public class NewPatientList {
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class PatientTree {
     // Instance Variables
     private BinarySearchTree patientTree;
     private int patientCount;
 
     // Constructors
-    public NewPatientList() {
+    public PatientTree() {
         this.patientTree = new BinarySearchTree();
         this.patientCount = 0;
     }
@@ -39,6 +43,24 @@ public class NewPatientList {
     public Patient nextPatient() {
         Patient patient = (Patient) this.patientTree.next();
         return patient;
+    }
+
+    public boolean savePatients(String filename) {
+        File file = new File(filename);
+
+        try (FileWriter fileWriter = new FileWriter(file)) {
+            initializePatientIteration();
+            Patient patient = null;
+
+            while ((patient = nextPatient()) != null) {
+                fileWriter.write(patient.toCSV() + "\n");
+            }
+
+            return true;
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+            return false;
+        }
     }
 
 }
