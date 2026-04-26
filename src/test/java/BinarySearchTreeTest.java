@@ -4,7 +4,6 @@ import java.util.Date;
 import com.github.noahstillwell.*;
 
 public class BinarySearchTreeTest {
-
     @Test
     void ConstructorTest() {
         BinarySearchTree binarySearchTree = new BinarySearchTree();
@@ -12,11 +11,11 @@ public class BinarySearchTreeTest {
     }
 
     @Test
-    void AddObjectTest() {
+    void AddTest() {
         BinarySearchTree binarySearchTree = new BinarySearchTree();
 
         Name name = new Name("firstName", "lastName");
-        Date dateOfBirth = PatientIdentity.parseDate("2000,01,01");
+        Date dateOfBirth = PatientIdentity.parseDate("2000-01-01");
         PatientIdentity patientIdentity = new PatientIdentity(name, dateOfBirth);
         Patient patient = new Patient(patientIdentity);
 
@@ -27,11 +26,11 @@ public class BinarySearchTreeTest {
     }
 
     @Test
-    void FindObjectTest() {
+    void FindTest() {
         BinarySearchTree binarySearchTree = new BinarySearchTree();
 
         Name name = new Name("firstName", "lastName");
-        Date dateOfBirth = PatientIdentity.parseDate("2000,01,01");
+        Date dateOfBirth = PatientIdentity.parseDate("2000-01-01");
         PatientIdentity patientIdentity = new PatientIdentity(name, dateOfBirth);
         Patient patient = new Patient(patientIdentity);
 

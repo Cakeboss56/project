@@ -68,14 +68,14 @@ public class PatientIdentity implements Identity {
     public static Date parseDate(String dateString) {
         try {
             return formatter.parse(dateString);
-        } catch (ParseException parseException){
+        } catch (ParseException parseException) {
             return null;
         }
     }
 
     public static PatientIdentity makePatientIdentity(String line) {
         try (Scanner scanner = new Scanner(line)) {
-            scanner.useDelimiter(",\s*");
+            scanner.useDelimiter(",\\s*");
 
             String lastName = scanner.next();
             String firstName = scanner.next();

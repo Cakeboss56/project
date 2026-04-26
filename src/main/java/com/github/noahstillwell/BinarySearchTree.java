@@ -97,6 +97,10 @@ public class BinarySearchTree {
     }
 
     public Object find(Identity identity) {
+        if (identity == null) {
+            return null;
+        }
+        
         Node node = findNode(this.rootNode, identity);
 
         if (node == null) {

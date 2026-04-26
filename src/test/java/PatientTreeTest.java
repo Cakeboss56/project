@@ -15,12 +15,12 @@ public class PatientTreeTest {
         PatientTree patientTree = new PatientTree();
 
         Name name1 = new Name("firstName1", "lastName1");
-        Date dateOfBirth1 = PatientIdentity.parseDate("1000,01,01");
+        Date dateOfBirth1 = PatientIdentity.parseDate("1000-01-01");
         PatientIdentity patientIdentity1 = new PatientIdentity(name1, dateOfBirth1);
         Patient patient1 = new Patient(patientIdentity1);
 
         Name name2 = new Name("firstName2", "lastName2");
-        Date dateOfBirth2 = PatientIdentity.parseDate("2000, 02, 02");
+        Date dateOfBirth2 = PatientIdentity.parseDate("2000-02-02");
         PatientIdentity patientIdentity2 = new PatientIdentity(name2, dateOfBirth2);
         Patient patient2 = new Patient(patientIdentity2);
 
@@ -46,7 +46,7 @@ public class PatientTreeTest {
         PatientTree patientTree = new PatientTree();
 
         Name name = new Name("firstName", "lastName");
-        Date dateOfBirth = PatientIdentity.parseDate("2000,01,01");
+        Date dateOfBirth = PatientIdentity.parseDate("2000-01-01");
         PatientIdentity patientIdentity = new PatientIdentity(name, dateOfBirth);
         Patient patient = new Patient(patientIdentity);
 
