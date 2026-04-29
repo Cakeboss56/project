@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
-public class PatientList {
+public class PatientListDeprecated {
     // Instance Variables
     private Patient[] patientArray;
     private static int maximumPatients = 10000;
@@ -14,7 +14,7 @@ public class PatientList {
     private int indexOfIteration;
     
     // Constructors
-    public PatientList() {
+    public PatientListDeprecated() {
         this.patientArray = new Patient[maximumPatients];
         this.numberOfPatients = 0;
         this.indexOfIteration = -1;
