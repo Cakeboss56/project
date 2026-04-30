@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.NoSuchElementException;
 
-public class PatientIdentity implements Identity {
+public class PatientIdentity implements ObjectIdentity {
     // Instance Variables
     private Name name;
     private Date dateOfBirth;
@@ -44,7 +44,7 @@ public class PatientIdentity implements Identity {
     }
 
     @Override
-    public boolean match(Identity identity) {
+    public boolean match(ObjectIdentity identity) {
         return match((PatientIdentity) identity);
     }
 
@@ -57,7 +57,7 @@ public class PatientIdentity implements Identity {
     }
 
     @Override
-    public boolean isLessThan(Identity identity) {
+    public boolean isLessThan(ObjectIdentity identity) {
         return isLessThan((PatientIdentity) identity);
     }
 

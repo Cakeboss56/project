@@ -3,16 +3,16 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.Date;
 import com.github.noahstillwell.*;
 
-public class PatientTreeTest {
+public class PatientListTest {
     @Test
     void ConstructorTest() {
-        PatientTree patientTree = new PatientTree();
+        PatientList patientTree = new PatientList();
         assertNotNull(patientTree);
     }
 
     @Test
     void AddPatientTest() {
-        PatientTree patientTree = new PatientTree();
+        PatientList patientTree = new PatientList();
 
         Name name1 = new Name("firstName1", "lastName1");
         Date dateOfBirth1 = PatientIdentity.parseDate("1000-01-01");
@@ -43,7 +43,7 @@ public class PatientTreeTest {
 
     @Test
     void FindPatientTest() {
-        PatientTree patientTree = new PatientTree();
+        PatientList patientTree = new PatientList();
 
         Name name = new Name("firstName", "lastName");
         Date dateOfBirth = PatientIdentity.parseDate("2000-01-01");

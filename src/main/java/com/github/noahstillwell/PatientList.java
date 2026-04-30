@@ -4,13 +4,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class PatientTree {
+public class PatientList {
     // Instance Variables
     private BinarySearchTree patientTree;
     private int patientCount;
 
     // Constructors
-    public PatientTree() {
+    public PatientList() {
         this.patientTree = new BinarySearchTree();
         this.patientCount = 0;
     }

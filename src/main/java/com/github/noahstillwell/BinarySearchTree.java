@@ -2,15 +2,15 @@ package com.github.noahstillwell;
 
 public class BinarySearchTree {
     // Nested Classes
-    private class Node {
+    private class TreeNode {
         // Instance Variables
-        private Object object;
-        private Node leftNode;
-        private Node rightNode;
+        private IdentifiedObject identifiedObject;
+        private TreeNode leftNode;
+        private TreeNode rightNode;
 
         // Constructors
-        private Node(Object object) {
-            this.object = object;
+        private TreeNode(IdentifiedObject identifiedObject) {
+            this.identifiedObject = identifiedObject;
             this.leftNode = null;
             this.rightNode = null;
         }
@@ -68,46 +68,45 @@ public class BinarySearchTree {
         private boolean isFull() {
             return this.top >= this.size;
         }
-        
     }
 
     // Instance Variables
-    private Node rootNode;
-    private Stack<Node> iterationStack;
+    private TreeNode rootNode;
+    private Stack<TreeNode> iterationStack;
     private static final int STACK_SIZE = 100;
 
     // Constructors
     public BinarySearchTree() {
         this.rootNode = null;
-        this.iterationStack = new Stack<Node>(STACK_SIZE);
+        this.iterationStack = new Stack<TreeNode>(STACK_SIZE);
     }
 
     // Methods
-    public boolean add(Object object) {
-        if (object == null || object.getIdentity() == null) {
+    public boolean add(IdentifiedObject identifiedObject) {
+        if (identifiedObject == null || identifiedObject.getObjectIdentity() == null) {
             return false;
         }
 
-        if (this.find(object.getIdentity()) != null) {
+        if (this.find(identifiedObject.getObjectIdentity()) != null) {
             return false;
         }
 
-        this.rootNode = addNode(this.rootNode, new Node(object));
+        this.rootNode = addNode(this.rootNode, new TreeNode(identifiedObject));
         return true;
     }
 
-    public Object find(Identity identity) {
+    public Object find(ObjectIdentity identity) {
         if (identity == null) {
             return null;
         }
         
-        Node node = findNode(this.rootNode, identity);
+        TreeNode node = findNode(this.rootNode, identity);
 
         if (node == null) {
             return null;
         }
 
-        return node.object;
+        return node.identifiedObject;
     }
 
     public void initializeIteration() {
@@ -116,24 +115,24 @@ public class BinarySearchTree {
     }
 
     public Object next() {
-        Node nextNode = this.iterationStack.pop();
+        TreeNode nextNode = this.iterationStack.pop();
 
         if (nextNode == null) {
             return null;
         }
 
         findLeftmostNode(nextNode.rightNode);
-        return nextNode.object;
+        return nextNode.identifiedObject;
     }
 
     // Helper Methods
-    private Node addNode(Node rootNode, Node newNode) {
+    private TreeNode addNode(TreeNode rootNode, TreeNode newNode) {
         if (rootNode == null) {
             return newNode;
         }
 
-        Identity rootIdentity = rootNode.object.getIdentity();
-        Identity newIdentity = newNode.object.getIdentity();
+        ObjectIdentity rootIdentity = rootNode.identifiedObject.getObjectIdentity();
+        ObjectIdentity newIdentity = newNode.identifiedObject.getObjectIdentity();
 
         if (newIdentity.match(rootIdentity)) {
             return rootNode;
@@ -148,12 +147,12 @@ public class BinarySearchTree {
         return rootNode;
     }
 
-    private Node findNode(Node rootNode, Identity identity) {
+    private TreeNode findNode(TreeNode rootNode, ObjectIdentity identity) {
         if (rootNode == null) {
             return null;
         }
 
-        Identity rootIdentity = rootNode.object.getIdentity();
+        ObjectIdentity rootIdentity = rootNode.identifiedObject.getObjectIdentity();
 
         if (identity.match(rootIdentity)) {
             return rootNode;
@@ -166,7 +165,7 @@ public class BinarySearchTree {
         return findNode(rootNode.rightNode, identity);
     }
 
-    private void findLeftmostNode(Node node) {
+    private void findLeftmostNode(TreeNode node) {
         while (node != null) {
             this.iterationStack.push(node);
             node = node.leftNode;
