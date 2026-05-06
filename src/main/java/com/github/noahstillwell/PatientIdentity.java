@@ -86,8 +86,8 @@ public class PatientIdentity implements ObjectIdentity {
             }
 
             Name name = new Name(firstName, lastName);
-            
-            return new PatientIdentity(name, dateOfBirth);
+            PatientIdentity patientIdentity = new PatientIdentity(name, dateOfBirth);
+            return patientIdentity;
         } catch (NoSuchElementException exception) {
             return null;
         }

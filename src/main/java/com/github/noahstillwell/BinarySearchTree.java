@@ -38,7 +38,6 @@ public class BinarySearchTree {
 
             this.array[this.top] = item;
             this.top++;
-
             return true;
         }
 
@@ -50,7 +49,6 @@ public class BinarySearchTree {
             Type item = this.array[this.top - 1];
             this.array[this.top - 1] = null;
             this.top--;
-
             return item;
         }
 
