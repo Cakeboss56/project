@@ -4,7 +4,7 @@ import com.github.noahstillwell.BinarySearchTree;
 
 public class BinarySearchTreeTest {
     @Test
-    public void TestBinarySearchTree() {
+    public void testBinarySearchTree() {
         BinarySearchTree<TestObject> tree = new BinarySearchTree<>();
 
         int objectCount = 100;
