@@ -1,37 +1,37 @@
 package com.github.noahstillwell;
 
-public class BinarySearchTree {
+public class BinarySearchTree<TreeType extends IdentifiedObject> {
     // Nested Classes
     private class TreeNode {
         // Instance Variables
-        private IdentifiedObject identifiedObject;
+        private TreeType treeObject;
         private TreeNode leftNode;
         private TreeNode rightNode;
 
         // Constructors
-        private TreeNode(IdentifiedObject identifiedObject) {
-            this.identifiedObject = identifiedObject;
+        private TreeNode(TreeType treeObject) {
+            this.treeObject = treeObject;
             this.leftNode = null;
             this.rightNode = null;
         }
     }
 
-    private class Stack<Type> {
+    private class Stack<StackType> {
         // Instance Variables
-        private Type[] array;
+        private StackType[] array;
         private int size;
         private int top;
 
         // Constructors
         @SuppressWarnings("unchecked")
         private Stack(int size) {
-            this.array = (Type[]) new Object[size];
+            this.array = (StackType[]) new Object[size];
             this.size = size;
             this.top = 0;
         }
        
         // Methods
-        private boolean push(Type item) {
+        private boolean push(StackType item) {
             if (this.isFull()) {
                 return false;
             }
@@ -41,12 +41,12 @@ public class BinarySearchTree {
             return true;
         }
 
-        private Type pop() {
+        private StackType pop() {
             if (this.isEmpty()) {
                 return null;
             }
 
-            Type item = this.array[this.top - 1];
+            StackType item = this.array[this.top - 1];
             this.array[this.top - 1] = null;
             this.top--;
             return item;
@@ -71,7 +71,7 @@ public class BinarySearchTree {
     // Instance Variables
     private TreeNode rootNode;
     private Stack<TreeNode> iterationStack;
-    private static final int STACK_SIZE = 100;
+    private static final int STACK_SIZE = 1000;
 
     // Constructors
     public BinarySearchTree() {
@@ -80,20 +80,20 @@ public class BinarySearchTree {
     }
 
     // Methods
-    public boolean add(IdentifiedObject identifiedObject) {
-        if (identifiedObject == null || identifiedObject.getObjectIdentity() == null) {
+    public boolean add(TreeType treeObject) {
+        if (treeObject == null || treeObject.getObjectIdentity() == null) {
             return false;
         }
 
-        if (this.find(identifiedObject.getObjectIdentity()) != null) {
+        if (this.find(treeObject.getObjectIdentity()) != null) {
             return false;
         }
 
-        this.rootNode = addNode(this.rootNode, new TreeNode(identifiedObject));
+        this.rootNode = addNode(this.rootNode, new TreeNode(treeObject));
         return true;
     }
 
-    public Object find(ObjectIdentity identity) {
+    public TreeType find(ObjectIdentity identity) {
         if (identity == null) {
             return null;
         }
@@ -104,7 +104,7 @@ public class BinarySearchTree {
             return null;
         }
 
-        return node.identifiedObject;
+        return node.treeObject;
     }
 
     public void initializeIteration() {
@@ -112,7 +112,7 @@ public class BinarySearchTree {
         findLeftmostNode(this.rootNode);
     }
 
-    public Object next() {
+    public TreeType next() {
         TreeNode nextNode = this.iterationStack.pop();
 
         if (nextNode == null) {
@@ -120,7 +120,7 @@ public class BinarySearchTree {
         }
 
         findLeftmostNode(nextNode.rightNode);
-        return nextNode.identifiedObject;
+        return nextNode.treeObject;
     }
 
     // Helper Methods
@@ -129,12 +129,8 @@ public class BinarySearchTree {
             return newNode;
         }
 
-        ObjectIdentity rootIdentity = rootNode.identifiedObject.getObjectIdentity();
-        ObjectIdentity newIdentity = newNode.identifiedObject.getObjectIdentity();
-
-        if (newIdentity.match(rootIdentity)) {
-            return rootNode;
-        }
+        ObjectIdentity rootIdentity = rootNode.treeObject.getObjectIdentity();
+        ObjectIdentity newIdentity = newNode.treeObject.getObjectIdentity();
 
         if (newIdentity.isLessThan(rootIdentity)) {
             rootNode.leftNode = addNode(rootNode.leftNode, newNode);
@@ -150,7 +146,7 @@ public class BinarySearchTree {
             return null;
         }
 
-        ObjectIdentity rootIdentity = rootNode.identifiedObject.getObjectIdentity();
+        ObjectIdentity rootIdentity = rootNode.treeObject.getObjectIdentity();
 
         if (identity.match(rootIdentity)) {
             return rootNode;
@@ -165,7 +161,10 @@ public class BinarySearchTree {
 
     private void findLeftmostNode(TreeNode node) {
         while (node != null) {
-            this.iterationStack.push(node);
+            if (!this.iterationStack.push(node)) {
+                return;
+            }
+
             node = node.leftNode;
         }
     }

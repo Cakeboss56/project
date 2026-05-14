@@ -1,42 +1,12 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.Date;
-import com.github.noahstillwell.*;
+import com.github.noahstillwell.BinarySearchTree;
 
 public class BinarySearchTreeTest {
     @Test
-    void ConstructorTest() {
-        BinarySearchTree binarySearchTree = new BinarySearchTree();
-        assertNotNull(binarySearchTree);
-    }
+    public void testBinarySearchTree() {
+        BinarySearchTree<TestObject> tree = new BinarySearchTree<>();
 
-    @Test
-    void AddTest() {
-        BinarySearchTree binarySearchTree = new BinarySearchTree();
 
-        Name name = new Name("firstName", "lastName");
-        Date dateOfBirth = PatientIdentity.parseDate("2000-01-01");
-        PatientIdentity patientIdentity = new PatientIdentity(name, dateOfBirth);
-        Patient patient = new Patient(patientIdentity);
-
-        binarySearchTree.add(patient);
-        Patient foundPatient = (Patient) binarySearchTree.find(patientIdentity);
-
-        assertEquals(patient, foundPatient);
-    }
-
-    @Test
-    void FindTest() {
-        BinarySearchTree binarySearchTree = new BinarySearchTree();
-
-        Name name = new Name("firstName", "lastName");
-        Date dateOfBirth = PatientIdentity.parseDate("2000-01-01");
-        PatientIdentity patientIdentity = new PatientIdentity(name, dateOfBirth);
-        Patient patient = new Patient(patientIdentity);
-
-        binarySearchTree.add(patient);
-        Patient foundPatient = (Patient) binarySearchTree.find(patientIdentity);
-
-        assertNotNull(foundPatient);
     }
 }

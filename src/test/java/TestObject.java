@@ -1,10 +1,10 @@
 import com.github.noahstillwell.IdentifiedObject;
 import com.github.noahstillwell.ObjectIdentity;
 
-public class TestIdentifiedObject implements IdentifiedObject {
+public class TestObject implements IdentifiedObject {
     private TestIdentity testIdentity;
 
-    public TestIdentifiedObject(TestIdentity testIdentity) {
+    public TestObject(TestIdentity testIdentity) {
         this.testIdentity = testIdentity;
     }
 

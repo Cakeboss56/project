@@ -6,12 +6,12 @@ import java.io.IOException;
 
 public class PatientList {
     // Instance Variables
-    private BinarySearchTree patientTree;
+    private BinarySearchTree<Patient> patientTree;
     private int patientCount;
 
     // Constructors
     public PatientList() {
-        this.patientTree = new BinarySearchTree();
+        this.patientTree = new BinarySearchTree<>();
         this.patientCount = 0;
     }
 
