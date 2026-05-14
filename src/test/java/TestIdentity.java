@@ -7,6 +7,10 @@ public class TestIdentity implements ObjectIdentity {
         this.integer = integer;
     }
 
+    public Integer getInteger() {
+        return this.integer;
+    }
+
     public boolean isLessThan(TestIdentity other) {
         return this.integer < other.integer;
     }
