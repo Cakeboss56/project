@@ -1,5 +1,10 @@
 package com.github.noahstillwell;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
 public class ContraindicationsHashTable {
     // Instance Variables
     private Contraindications[] table;
@@ -13,9 +18,38 @@ public class ContraindicationsHashTable {
     }
 
     // Methods
+    public boolean addContraindication(String drugName1, String drugName2) {
+        drugName1 = drugName1.trim();
+        drugName2 = drugName2.trim();
+
+        if (drugName1.isEmpty() || drugName2.isEmpty()) {
+            return false;
+        }
+
+        
+
+    }
+
+
+    public boolean importContraindications(String filename) {
+        File file = new File(filename);
+
+        try (Scanner scanner = new Scanner(file)) {
+            scanner.useDelimiter(",\\s*");
+
+            while (scanner.hasNextLine()) {
+                String drugName1 = scanner.next();
+                String drugName2 = scanner.next();
+            }
+        } catch (IOException | NoSuchElementException exception) {
+            exception.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 
     // Helper Methods
-    private long hashCode(String drugName) {
+    private int buildHashCode(String drugName) {
         drugName = drugName.trim().toLowerCase();
 
         if (drugName.isEmpty()) {
@@ -39,6 +73,6 @@ public class ContraindicationsHashTable {
             hashCode = hashCode | (characterValue << (8 * index));
         }
 
-        return hashCode;
+        return (int) (hashCode % TABLE_SIZE);
     }
 }

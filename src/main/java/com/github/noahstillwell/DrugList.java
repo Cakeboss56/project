@@ -25,14 +25,6 @@ public class DrugList {
     }
 
     // Getters
-    public Record getHeadRecord() {
-        return headRecord;
-    }
-
-    public Record getCurrentRecord() {
-        return currentRecord;
-    }
-
     public int getDrugCount() {
         return drugCount;
     }
