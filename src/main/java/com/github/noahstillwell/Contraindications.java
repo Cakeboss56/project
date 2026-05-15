@@ -42,6 +42,14 @@ public class Contraindications {
         }
     }
 
+    public boolean matchesDrug(String drugName) {
+        if (drugName == null) {
+            return false;
+        }
+
+        return this.drugName.trim().equalsIgnoreCase(drugName.trim());
+    }
+
     public static Contraindications makeContraindication(String drugName, String contraindicatedDrugName) {
         drugName = drugName.trim();
         contraindicatedDrugName = contraindicatedDrugName.trim();
